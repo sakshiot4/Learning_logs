@@ -1,0 +1,21 @@
+{% extends 'learning_logs/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block page_header %}
+  <h1>Topics</h1>
+{% endblock page_header %}
+
+{% block content %}
+
+<ul class="list-group border-bottom pb-2 mb-4"> 
+    {% for topic in topics %} <!--loops through the list of topics from the context dictionary.-->
+      <li class="list-group-item border-0">
+        <a href="{% url 'learning_logs:topic' topic.id %}"><button class="btn btn-info btn-lg w-100">{{ topic.text }}</button></a> 
+      </li>
+    {% empty %} <!-- Tells django what to do where there are no items in the list. -->
+      <li class="list-group-item border-1 pb-2 ">No topics have been added yet.</li>
+    {% endfor %} <!--End of the loop-->
+</ul>
+<a href="{% url 'learning_logs:new_topic' %}">{% bootstrap_button button_type="submit" content="Add a new Topic" %}</a>
+
+{% endblock content %}
